@@ -1,37 +1,30 @@
-
 <!doctype html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GBA – Juego</title>
-  <link rel="icon" href="data:,">
-  <style>
-    html,body{height:100%;margin:0;background:#111;color:#eee}
-    #wrap{height:100%;display:grid;place-items:center;padding:10px}
-    #game{width:min(960px,100%);height:min(720px,85vh);background:#000}
-    .hint{text-align:center;opacity:.75;font:14px system-ui,sans-serif;margin-top:10px}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GBA Test</title>
+<style>
+html,body{margin:0;height:100%;background:#111;color:#eee}
+#wrap{display:grid;place-items:center;height:100%}
+#game{width:min(960px,100%);height:min(720px,85vh);background:#000}
+.hint{text-align:center;opacity:.7;font:14px system-ui;margin-top:8px}
+</style>
 </head>
 <body>
-  <div id="wrap">
-    <div id="game"></div>
-    <div class="hint">Cargando… Si no inicia, revisa el nombre del ROM.</div>
-  </div>
+<div id="wrap">
+  <div id="game"></div>
+  <div class="hint">Cargando…</div>
+</div>
 
-  <script>
-    // === CONFIG EmulatorJS para GBA ===
-    window.EJS_player      = "#game";           // contenedor
-    window.EJS_core        = "gba";             // << GBA
-    window.EJS_gameUrl     = "game.gba";        // archivo en la MISMA carpeta
-    window.EJS_pathtodata  = "https://www.emulatorjs.com/";
-    window.EJS_gameName    = "GBA";
-    window.EJS_backgroundColor = "#000";
-    // Opcionales útiles:
-    // window.EJS_mouse = false;
-    // window.EJS_multitap = false;
-  </script>
+<script>
+window.EJS_player = "#game";
+window.EJS_core  = "gba";
+window.EJS_gameUrl = "game.gba";
+window.EJS_pathtodata = "https://www.emulatorjs.com/";
+window.EJS_gameName = "Flappy Test";
+</script>
 
-  <script src="https://www.emulatorjs.com/loader.js"></script>
+<script src="https://www.emulatorjs.com/loader.js"></script>
 </body>
 </html>
