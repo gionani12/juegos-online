@@ -1,17 +1,15 @@
-
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SNES – Juego</title>
-  <!-- Evita el 404 del favicon en consola -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mario RPG – SNES Web</title>
   <link rel="icon" href="data:,">
   <style>
-    html, body { height:100%; margin:0; background:#111; color:#eee; }
-    #wrap { height:100%; display:grid; place-items:center; padding:10px; }
-    #game { width:min(960px, 100%); height:min(720px, 85vh); background:#000; }
-    .hint { font:14px/1.4 system-ui, sans-serif; opacity:.8; margin-top:8px; text-align:center }
+    html,body{margin:0;height:100%;background:#111;color:#eee}
+    #wrap{height:100%;display:grid;place-items:center;padding:10px}
+    #game{width:min(960px,100%);height:min(720px,85vh);background:#000}
+    .hint{text-align:center;opacity:.7;font:14px system-ui,sans-serif;margin-top:12px}
   </style>
 </head>
 <body>
@@ -21,23 +19,16 @@
   </div>
 
   <script>
-    // === Config de EmulatorJS ===
-    // Dónde dibujar el emulador:
-    window.EJS_player   = "#game";
-    // Núcleo (SNES):
-    window.EJS_core     = "snes";
-    // ROM a cargar: archivo .sfc en la MISMA carpeta que este index.html
-    // (si el archivo se llama distinto, cámbialo aquí)
-    window.EJS_gameUrl  = "./game.sfc";
-    // Ruta a los assets de EmulatorJS (necesario para que loader encuentre /data/)
-    window.EJS_pathtodata = "https://www.emulatorjs.com/";
-    // (Opcional) Nombre mostrado:
-    window.EJS_gameName = "DK1";
-    // (Opcional) Color de fondo:
+    // === CONFIG ===
+    window.EJS_player      = "#game";
+    window.EJS_core        = "bsnes";          // <— el core que SI puede SA-1 si viene compilado
+    window.EJS_gameUrl     = "game.sfc";       // <— el rom en la MISMA carpeta
+    window.EJS_pathtodata  = "https://www.emulatorjs.com/";
+    window.EJS_gameName    = "Super Mario RPG";
     window.EJS_backgroundColor = "#000";
   </script>
 
-  <!-- Loader de EmulatorJS -->
   <script src="https://www.emulatorjs.com/loader.js"></script>
 </body>
 </html>
+
