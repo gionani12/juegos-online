@@ -19,15 +19,20 @@
   </div>
 
   <script>
-    // === CONFIG CORRECTA ===
-    window.EJS_player         = "#game";
-    window.EJS_core           = "snes";           // <- core válido
-    window.EJS_gameUrl        = "game.sfc";       // <- debe existir en la MISMA carpeta
-    window.EJS_gameName       = "Donkey Kong Country";
-    window.EJS_backgroundColor= "#000";
+    // === CONFIG ===
+    window.EJS_player            = "#game";
+    window.EJS_core              = "snes";
+    window.EJS_gameUrl           = "./game.sfc";  // mismo folder
+    window.EJS_gameName          = "Donkey Kong Country";
+    window.EJS_backgroundColor   = "#000";
 
-    // Usa el CDN estable de EmulatorJS:
-    window.EJS_pathtodata     = "https://cdn.emulatorjs.org/stable/data/";
+    // Arreglo típico para GitHub Pages (sin COOP/COEP):
+    window.EJS_compat            = true;          // fuerza modo compatible (sin SharedArrayBuffer)
+    window.EJS_startOnLoaded     = true;          // arranca sin botón
+    window.EJS_fullscreenOnLoaded= false;
+
+    // CDN correcto
+    window.EJS_pathtodata        = "https://cdn.emulatorjs.org/stable/data/";
   </script>
 
   <script src="https://cdn.emulatorjs.org/stable/loader.js"></script>
