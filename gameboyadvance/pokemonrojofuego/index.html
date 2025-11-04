@@ -13,21 +13,23 @@ html,body{margin:0;height:100%;background:#111;color:#eee}
 </style>
 </head>
 <body>
-<div id="wrap">
-  <div id="game"></div>
-  <div class="hint">Cargando…</div>
-</div>
+  <div id="wrap">
+    <div id="game"></div>
+    <div class="hint">Cargando…</div>
+  </div>
 
-<script>
-  window.EJS_player      = "#game";
-  window.EJS_core        = "gba";
-  window.EJS_gameUrl     = "game.gba?v=9";     // sube el numero siempre que edites
-  window.EJS_pathtodata  = "https://www.emulatorjs.com/";
-  window.EJS_gameName    = "Advance Wars 2";
-</script>
-<script src="https://www.emulatorjs.com/loader.js"></script>
+  <script>
+    // CONFIG
+    window.EJS_player   = "#game";
+    window.EJS_core     = "gba";
+    window.EJS_gameUrl  = "./game.gba";
+    window.EJS_gameName = "Pokemon Rojo Fuego";
 
-
-
+    // loader
+    const s = document.createElement("script");
+    s.src = "https://www.emulatorjs.com/loader.js";
+    document.body.appendChild(s);
+  </script>
 </body>
+
 </html>
