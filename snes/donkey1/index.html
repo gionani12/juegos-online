@@ -1,27 +1,48 @@
 <!doctype html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SNES Donkey</title>
+<title>SNES – Donkey</title>
 <style>
-html,body{margin:0;height:100%;background:#000}
-#game{width:100vw;height:100vh}
+  html,body{margin:0;height:100%;background:#000;color:#9cf;font-family:system-ui}
+  #wrap{height:100vh;display:grid;place-items:center}
+  #game{width:min(960px,100%);height:min(720px,85vh);background:#000}
+  #diag{position:fixed;left:8px;bottom:8px;font-size:12px;opacity:.85}
+  #diag code{background:#111;padding:2px 4px;border-radius:4px;color:#cfc}
 </style>
 </head>
 <body>
-<div id="game"></div>
+<div id="wrap">
+  <div id="game"></div>
+</div>
+<div id="diag">Estado: <code>iniciando…</code></div>
 
 <script>
-// ---- CONFIG ----
-window.EJS_player   = "#game";
-window.EJS_core     = "snes";
-window.EJS_gameUrl  = "game.sfc";      // <-- tu rom
-window.EJS_compat   = true;            // modo compatible (github pages)
-window.EJS_startOnLoaded = false;      // para que aparezca el botón
-window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+  // ---- CONFIG ----
+  window.EJS_player              = "#game";
+  window.EJS_core                = "snes";
+  window.EJS_gameUrl             = "game.sfc";     // mismo folder
+  window.EJS_compat              = true;           // obligatorio en GitHub Pages
+  window.EJS_startOnLoaded       = false;          // muestra botón Start Game
+  window.EJS_backgroundColor     = "#000";
+
+
+  window.EJS_pathtodata          = "https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@latest/dist/data/";
+
+
+  const diag = (t)=>{ document.querySelector("#diag code").textContent = t; };
+  diag("cargando loader…");
+  window.addEventListener("error", e => { diag("error: "+(e.message||e.type)); });
+ 
+  setTimeout(()=>{ 
+    if (!window.EJS_isLoaded) diag("no cargó loader.js (¿bloqueado por el navegador?)");
+  }, 4000);
 </script>
 
-<script src="https://cdn.emulatorjs.org/stable/loader.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@latest/dist/loader.js"
+        onload="EJS_isLoaded=true; diag('loader OK, esperando botón…')"
+        onerror="diag('falló loader.js')"></script>
 </body>
 </html>
