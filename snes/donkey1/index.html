@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Mario RPG – SNES Web</title>
+  <title>SNES Web – Donkey</title>
   <link rel="icon" href="data:,">
   <style>
     html,body{margin:0;height:100%;background:#111;color:#eee}
@@ -19,16 +19,17 @@
   </div>
 
   <script>
-    // === CONFIG ===
-    window.EJS_player      = "#game";
-    window.EJS_core        = "bsnes";          // <— el core que SI puede SA-1 si viene compilado
-    window.EJS_gameUrl     = "game.sfc";       // <— el rom en la MISMA carpeta
-    window.EJS_pathtodata  = "https://www.emulatorjs.com/";
-    window.EJS_gameName    = "Super Mario RPG";
-    window.EJS_backgroundColor = "#000";
+    // === CONFIG CORRECTA ===
+    window.EJS_player         = "#game";
+    window.EJS_core           = "snes";           // <- core válido
+    window.EJS_gameUrl        = "game.sfc";       // <- debe existir en la MISMA carpeta
+    window.EJS_gameName       = "Donkey Kong Country";
+    window.EJS_backgroundColor= "#000";
+
+    // Usa el CDN estable de EmulatorJS:
+    window.EJS_pathtodata     = "https://cdn.emulatorjs.org/stable/data/";
   </script>
 
-  <script src="https://www.emulatorjs.com/loader.js"></script>
+  <script src="https://cdn.emulatorjs.org/stable/loader.js"></script>
 </body>
 </html>
-
