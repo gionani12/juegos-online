@@ -1,40 +1,27 @@
 <!doctype html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SNES Web – Donkey</title>
-  <link rel="icon" href="data:,">
-  <style>
-    html,body{margin:0;height:100%;background:#111;color:#eee}
-    #wrap{height:100%;display:grid;place-items:center;padding:10px}
-    #game{width:min(960px,100%);height:min(720px,85vh);background:#000}
-    .hint{text-align:center;opacity:.7;font:14px system-ui,sans-serif;margin-top:12px}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SNES Donkey</title>
+<style>
+html,body{margin:0;height:100%;background:#000}
+#game{width:100vw;height:100vh}
+</style>
 </head>
 <body>
-  <div id="wrap">
-    <div id="game"></div>
-    <div class="hint">Cargando…</div>
-  </div>
+<div id="game"></div>
 
-  <script>
-    // === CONFIG ===
-    window.EJS_player            = "#game";
-    window.EJS_core              = "snes";
-    window.EJS_gameUrl           = "./game.sfc";  // mismo folder
-    window.EJS_gameName          = "Donkey Kong Country";
-    window.EJS_backgroundColor   = "#000";
+<script>
+// ---- CONFIG ----
+window.EJS_player   = "#game";
+window.EJS_core     = "snes";
+window.EJS_gameUrl  = "game.sfc";      // <-- tu rom
+window.EJS_compat   = true;            // modo compatible (github pages)
+window.EJS_startOnLoaded = false;      // para que aparezca el botón
+window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+</script>
 
-    // Arreglo típico para GitHub Pages (sin COOP/COEP):
-    window.EJS_compat            = true;          // fuerza modo compatible (sin SharedArrayBuffer)
-    window.EJS_startOnLoaded     = true;          // arranca sin botón
-    window.EJS_fullscreenOnLoaded= false;
-
-    // CDN correcto
-    window.EJS_pathtodata        = "https://cdn.emulatorjs.org/stable/data/";
-  </script>
-
-  <script src="https://cdn.emulatorjs.org/stable/loader.js"></script>
+<script src="https://cdn.emulatorjs.org/stable/loader.js"></script>
 </body>
 </html>
