@@ -1,26 +1,50 @@
 <!doctype html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SNES Donkey</title>
+<title>SNES – Donkey</title>
 <style>
-html,body{margin:0;height:100%;background:#000}
-#game{width:100vw;height:100vh;background:#000}
+  html,body{margin:0;height:100%;background:#000;color:#9cf;font-family:system-ui}
+  #wrap{height:100vh;display:grid;place-items:center}
+  #game{width:min(960px,100%);height:min(720px,85vh);background:#000}
+  #diag{position:fixed;left:8px;bottom:8px;font-size:12px;opacity:.85}
+  #diag code{background:#111;padding:2px 4px;border-radius:4px;color:#cfc}
 </style>
 </head>
 <body>
-<div id="game"></div>
+<div id="wrap"><div id="game"></div></div>
+<div id="diag">Estado: <code>iniciando…</code></div>
 
 <script>
-window.EJS_player   = "#game";
-window.EJS_core     = "snes";
-window.EJS_gameUrl  = "game.sfc";
-window.EJS_compat   = true;
+  // ---- CONFIG ----
+  window.EJS_player        = "#game";
+  window.EJS_core          = "snes";
+  window.EJS_gameUrl       = "game.sfc";
+  window.EJS_compat        = true;              // GitHub Pages
+  window.EJS_startOnLoaded = false;             
+  
+  window.EJS_pathtodata    = "https://raw.githubusercontent.com/emulatorjs/emulatorjs/main/data/";
 
-window.EJS_pathtodata = "https://raw.githubusercontent.com/emulatorjs/emulatorjs/main/data/";
+  
+  const diag = t => document.querySelector("#diag code").textContent = t;
+  const loaders = [
+    "https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@main/dist/loader.js",
+    "https://unpkg.com/emulatorjs@latest/dist/loader.js",
+    "https://raw.githubusercontent.com/emulatorjs/emulatorjs/main/dist/loader.js"
+  ];
+  let i = 0;
+  function loadNext() {
+    if (i >= loaders.length) { diag("no se pudo cargar loader.js desde ningún CDN"); return; }
+    const src = loaders[i++];
+    diag("cargando loader: " + src);
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = () => { diag("loader OK, esperando botón…"); };
+    s.onerror = () => { diag("falló " + src + " → probando otro…"); loadNext(); };
+    document.body.appendChild(s);
+  }
+  loadNext();
 </script>
-
-<script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@main/dist/loader.js"></script>
 </body>
 </html>
