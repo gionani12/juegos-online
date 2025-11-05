@@ -1,1 +1,37 @@
 
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GBA – Mario & Luigi: Superstar Saga</title>
+  <style>
+    html,body{height:100%;margin:0;background:#111;color:#eee}
+    #wrap{height:100%;display:grid;place-items:center;padding:10px}
+    #game{width:min(960px,100%);height:min(720px,85vh);background:#000}
+    .hint{font:14px/1.4 system-ui,sans-serif;opacity:.7;margin-top:8px;text-align:center}
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="game"></div>
+    <div class="hint">Cargando…</div>
+  </div>
+
+  <script>
+    // Configuración de EmulatorJS
+    window.EJS_player   = "#game";
+    window.EJS_core     = "gba";
+    window.EJS_gameUrl  = "./game.gba";              // mismo nombre del archivo
+    window.EJS_gameName = "Pokemon mistery dungeon";
+    window.EJS_pathtodata = "https://www.emulatorjs.com/"; // con slash final
+
+    // Cargar el loader de forma segura
+    (function () {
+      const s = document.createElement("script");
+      s.src = "https://www.emulatorjs.com/loader.js";
+      document.body.appendChild(s);
+    })();
+  </script>
+</body>
+</html>
