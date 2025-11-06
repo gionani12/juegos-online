@@ -7,46 +7,54 @@
   <style>
     html,body{margin:0;height:100%;background:#000}
     #wrap{height:100%;display:grid;place-items:center}
-    #screen{width:min(1280px,100%);height:min(960px,95vh);background:#000;
-      image-rendering: pixelated; image-rendering: crisp-edges;}
+    #screen{
+      width:min(1280px,100%);
+      height:min(960px,95vh);
+      background:#000;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
   </style>
 </head>
 <body>
   <div id="wrap"><canvas id="screen"></canvas></div>
 
   <script>
+    // ROM en tu GitHub Pages
     const ROM_URL = "https://gionani12.github.io/juegos-online/snes/donkey1/game.sfc";
 
-    // Apunta el .wasm al CDN
+    // Config Emscripten: dónde buscar el .wasm (CDN)
     var Module = {
       canvas: document.getElementById('screen'),
       locateFile: (path) =>
         "https://cdn.jsdelivr.net/gh/kazuki-4ys/kazuki-4ys.github.io@master/web_apps/snes9x-2005-wasm/" + path
     };
 
+    // Descarga e inyecta la ROM, luego arranca el core
     async function boot(){
-      const resp = await fetch(ROM_URL, {cache:"no-store"});
-      if(!resp.ok){ console.error("ROM no disponible:", resp.status); return; }
+      const resp = await fetch(ROM_URL, { cache: "no-store" });
+      if(!resp.ok){ console.error("ROM no disponible:", resp.status, ROM_URL); return; }
       const buf = await resp.arrayBuffer();
 
-      await new Promise(r=>{
-        (function w(){ (Module.FS)?r():setTimeout(w,10) }());
+      // Esperar a que FS esté listo
+      await new Promise(res=>{
+        (function wait(){ (Module.FS)?res():setTimeout(wait,10) }());
       });
 
       const romName = "/game.sfc";
       Module.FS.writeFile(romName, new Uint8Array(buf));
-      Module.arguments = (Module.arguments||[]);
+      Module.arguments = (Module.arguments || []);
       Module.arguments.push(romName);
 
       // fullscreen al primer click
       document.body.addEventListener("click", ()=>{
         if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
-      }, {once:true});
+      }, { once:true });
     }
     window.addEventListener("load", boot);
   </script>
 
-  <!-- Carga el JS del core desde el CDN -->
+  <!-- Core SNES9x-2005 desde CDN (carga también el .wasm vía locateFile) -->
   <script src="https://cdn.jsdelivr.net/gh/kazuki-4ys/kazuki-4ys.github.io@master/web_apps/snes9x-2005-wasm/snes9x_2005.js"></script>
 </body>
 </html>
