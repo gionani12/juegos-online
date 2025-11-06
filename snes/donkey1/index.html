@@ -7,66 +7,46 @@
   <style>
     html,body{margin:0;height:100%;background:#000}
     #wrap{height:100%;display:grid;place-items:center}
-    #screen{
-      width:min(1280px,100%);
-      height:min(960px,95vh);
-      background:#000;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-    /* ocultar cualquier overlay que algunos builds muestren */
-    .menu, .overlay, .toolbar { display:none !important; }
+    #screen{width:min(1280px,100%);height:min(960px,95vh);background:#000;
+      image-rendering: pixelated; image-rendering: crisp-edges;}
   </style>
 </head>
 <body>
-  <div id="wrap">
-    <canvas id="screen"></canvas>
-  </div>
+  <div id="wrap"><canvas id="screen"></canvas></div>
 
   <script>
-    // URL ABSOLUTA a tu ROM (GitHub Pages)
     const ROM_URL = "https://gionani12.github.io/juegos-online/snes/donkey1/game.sfc";
 
-    // Configuración para Emscripten/Snes9x WASM
-    // - locateFile: dónde están snes9x.js/snes9x.wasm (tu carpeta /snes/core/)
+    // Apunta el .wasm al CDN
     var Module = {
       canvas: document.getElementById('screen'),
-      locateFile: (path) => "/juegos-online/snes/core/" + path
+      locateFile: (path) =>
+        "https://cdn.jsdelivr.net/gh/kazuki-4ys/kazuki-4ys.github.io@master/web_apps/snes9x-2005-wasm/" + path
     };
 
-    // Cargar la ROM y pasarla como argumento al emulador
-    async function boot() {
-      // Descarga ROM sin caché para evitar “se queda pegado”
-      const resp = await fetch(ROM_URL, { cache: "no-store" });
-      if (!resp.ok) {
-        console.error("No se pudo descargar la ROM:", resp.status, ROM_URL);
-        return;
-      }
+    async function boot(){
+      const resp = await fetch(ROM_URL, {cache:"no-store"});
+      if(!resp.ok){ console.error("ROM no disponible:", resp.status); return; }
       const buf = await resp.arrayBuffer();
 
-      // Espera a que el FS virtual esté listo
-      await new Promise((res)=>{
-        (function waitFS(){ (Module.FS)?res():setTimeout(waitFS, 10) }());
+      await new Promise(r=>{
+        (function w(){ (Module.FS)?r():setTimeout(w,10) }());
       });
 
-      // Escribe la ROM en el FS virtual y pásala en argv
       const romName = "/game.sfc";
       Module.FS.writeFile(romName, new Uint8Array(buf));
-      Module.arguments = Module.arguments || [];
-      // Muchos builds de Snes9x aceptan simplemente el nombre del archivo como argv[1]
+      Module.arguments = (Module.arguments||[]);
       Module.arguments.push(romName);
 
-      // Opcional: intentar fullscreen al primer click
-      document.body.addEventListener("click", () => {
-        if (document.fullscreenElement) return;
-        document.documentElement.requestFullscreen?.().catch(()=>{});
-      }, { once:true });
+      // fullscreen al primer click
+      document.body.addEventListener("click", ()=>{
+        if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+      }, {once:true});
     }
-
     window.addEventListener("load", boot);
   </script>
 
-  <!-- Carga el emulador (tu build WASM de Snes9x) -->
-  <script src="/juegos-online/snes/core/snes9x.js"></script>
+  <!-- Carga el JS del core desde el CDN -->
+  <script src="https://cdn.jsdelivr.net/gh/kazuki-4ys/kazuki-4ys.github.io@master/web_apps/snes9x-2005-wasm/snes9x_2005.js"></script>
 </body>
 </html>
