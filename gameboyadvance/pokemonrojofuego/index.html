@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GBA Test</title>
+<title>Fired Version</title>
 <style>
 html,body{margin:0;height:100%;background:#111;color:#eee}
 #wrap{display:grid;place-items:center;height:100%}
@@ -19,17 +19,16 @@ html,body{margin:0;height:100%;background:#111;color:#eee}
   </div>
 
   <script>
-    // CONFIG
-    window.EJS_player   = "#game";
-    window.EJS_core     = "gba";
-    window.EJS_gameUrl  = "./game.gba";
-    window.EJS_gameName = "Pokemon Rojo Fuego";
+  window.EJS_player      = "#game";
+  window.EJS_core        = "gba";
+  window.EJS_gameUrl     = "game.gba?v=9";     // sube el numero siempre que edites
+   window.EJS_pathtodata  = "https://pub-02e1345ecdc6416c8f29abb18d8cddf8.r2.dev/data/";
+  window.EJS_gameName    = "Rojo Fuego";
+  window.EJS_backgroundImage = "https://pub-02e1345ecdc6416c8f29abb18d8cddf8.r2.dev/image/gba/12.jpg";
+</script>
 
-    // loader
-    const s = document.createElement("script");
-    s.src = "https://www.emulatorjs.com/loader.js";
-    document.body.appendChild(s);
-  </script>
+  
+ <script src="https://pub-02e1345ecdc6416c8f29abb18d8cddf8.r2.dev/data/loader.js"></script>
 </body>
 
 </html>
